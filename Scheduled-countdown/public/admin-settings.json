@@ -1,6 +1,6 @@
 {
     "ipsettings": {
-        "ipadress": "127.0.0.1",
+        "ipadress": "192.168.8.131",
         "port": "3000",
         "countUp": 2,
         "cueCountDown": 7,
@@ -104,6 +104,13 @@
             "title": "Queen",
             "startTime": "21:25",
             "cueLength": "00:05:00",
+            "cueBool": "1",
+            "fiveBool": "1"
+        },
+        {
+            "title": "New row added",
+            "startTime": "23:38",
+            "cueLength": "00:01:10",
             "cueBool": "1",
             "fiveBool": "1"
         }
