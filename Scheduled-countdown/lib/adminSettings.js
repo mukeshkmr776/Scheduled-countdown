@@ -13,6 +13,8 @@ async function get() {
 }
 
 async function write(data) {
+  console.log("---------- ASYNC WRITE ----------");
+  console.log(data);
   currentState = data;
   await jsonFiles.write(filepath, currentState);
 }

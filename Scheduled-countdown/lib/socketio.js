@@ -241,9 +241,9 @@ async function updateScheduledTimesjson() {
 //Uppdaterad
 async function updateOffsetTimePlusjson() {
   try{
-    const adminSettings = await scheduledTimes.get();
-    adminSettings.timeSettings.offsetTime += 1;
-    await scheduledTimes.write(adminSettings);
+    const adminSettingsData = await adminSettings.get();
+    adminSettingsData.timeSettings.offsetTime += 1;
+    await adminSettings.write(adminSettingsData);
 
   }catch(error){
     console.log(error);
@@ -251,9 +251,9 @@ async function updateOffsetTimePlusjson() {
 };
 async function updateOffsetTimeMinusjson() {
   try{
-    const adminSettings = await scheduledTimes.get();
-    adminSettings.timeSettings.offsetTime -= 1;
-    await scheduledTimes.write(adminSettings);
+    const adminSettingsData = await adminSettings.get();
+    adminSettingsData.timeSettings.offsetTime -= 1;
+    await adminSettings.write(adminSettingsData);
 
   }catch(error){
     console.log(error);
@@ -261,9 +261,9 @@ async function updateOffsetTimeMinusjson() {
 };
 async function updateOffsetTimeResetjson() {
   try{
-    const adminSettings = await scheduledTimes.get();
-    adminSettings.timeSettings.offsetTime = 0;
-    await scheduledTimes.write(adminSettings);
+    const adminSettingsData = await adminSettings.get();
+    adminSettingsData.timeSettings.offsetTime = 0;
+    await adminSettings.write(adminSettingsData);
 
   }catch(error){
     console.log(error);
@@ -375,7 +375,6 @@ var users = [];
 io.on('connection', function(socket) {
 
   console.log('A user connected = ' + socket.handshake.address);
-
   // My sockets
   //--------------------------------------------------
   socket.on("start", function(data) {

@@ -11,7 +11,7 @@ var myipjson = adminSettings.ipsettings.ipadress;
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 var myIpArray= [];
 var myLocalip = myipjson+":3000";
-
+const io = require('socket.io-client')(myLocalip);
 //--------------------------------------------------
 
 const scheduledTimes = require('../lib/adminSettings');
@@ -151,6 +151,7 @@ router.post('/admin/loadDefault', async function(req, res){
   try{
     console.log("++--++--++--++--++ loadDefault ++--++--++--++--++");
     const adminSettingsBackup = await scheduledTimesBackup.get();
+    console.log(adminSettingsBackup);
     await scheduledTimes.write(adminSettingsBackup);
 
     // const adminSettings = await scheduledTimes.get();
@@ -163,31 +164,9 @@ router.post('/admin/loadDefault', async function(req, res){
 })
 router.post('/admin/writeToDefault', async function(req, res){
   try{
-    console.log("++++++++++ - - - - - -------------------------------------");
-    console.log(req.body);
-
-    const adminSettingsBackup = await scheduledTimesBackup.get();
-    for (let i = 0; i < adminSettings.schedule.length; i++) {
-      adminSettingsBackup.schedule[i].title = JSON.parse(JSON.stringify(req.body[`title${i}`]))
-    }
-    for (let i = 0; i < adminSettings.schedule.length; i++) {
-      adminSettingsBackup.schedule[i].startTime = JSON.parse(JSON.stringify(req.body[`startTime${i}`]))
-    }
-    for (let i = 0; i < adminSettings.schedule.length; i++) {
-      adminSettingsBackup.schedule[i].cueLength = JSON.parse(JSON.stringify(req.body[`cueLength${i}`]))
-    }
-    for (let i = 0; i < adminSettings.schedule.length; i++) {
-      adminSettingsBackup.schedule[i].cueBool = JSON.parse(JSON.stringify(req.body[`cueBool${i}`]))
-    }
-    for (let i = 0; i < adminSettings.schedule.length; i++) {
-      adminSettingsBackup.schedule[i].fiveBool = JSON.parse(JSON.stringify(req.body[`fiveBool${i}`]))
-    }
-
-    adminSettingsBackup.schedule.sort(function(a, b) {
-      return a.startTime.localeCompare(b.startTime);
-    });
-
-    await scheduledTimesBackup.write(adminSettingsBackup);
+    console.log("----------> writeToDefault <----------");
+    const adminSettings = await scheduledTimes.get();
+    await scheduledTimesBackup.write(adminSettings);
   }
   catch(error){
     console.log(error);
@@ -454,6 +433,8 @@ router.post('/submitmathias', async function(req, res){
   });
 
 
+// const socket = io(myLocalip);
+// socket.emit('chat message', "----------- HJellöo fdjklaöjfkdlsajfkldsajfjkdlsaldösfa --------------");
 
 
 
